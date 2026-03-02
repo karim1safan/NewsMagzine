@@ -6,7 +6,7 @@ const NewsBoard = ({ category }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const API_KEY = "5573fce1e7bb487f92c355c133d7da90";
+  const API_KEY = import.meta.env.VITE_API_KEY;
 
   // pagination
   const [page, setPage] = useState(1);
@@ -56,7 +56,7 @@ const NewsBoard = ({ category }) => {
         </div>
       )}
       <div className="d-flex justify-content-center mt-5">
-        {!loading && (
+        {!loading && articles.length > 0 && (
           <nav>
             <ul className="pagination">
               {/* Previous */}
