@@ -22,49 +22,44 @@ const Navbar = ({ setCategory, category }) => {
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav">
             <li className="nav-item">
-              <div
-                className={`nav-link ${category === "general" ? "active" : ""}`}
+              <button
+                className={`nav-link btn btn-link ${category === "general" ? "active" : ""}`}
                 onClick={() => setCategory("general")}
-                style={{ cursor: "pointer" }}
               >
                 General
-              </div>
+              </button>
             </li>
             <li className="nav-item">
-              <div
-                className={`nav-link ${category === "technology" ? "active" : ""}`}
+              <button
+                className={`nav-link btn btn-link ${category === "technology" ? "active" : ""}`}
                 onClick={() => setCategory("technology")}
-                style={{ cursor: "pointer" }}
               >
                 Technology
-              </div>
+              </button>
             </li>
             <li className="nav-item">
-              <div
-                className={`nav-link ${category === "sports" ? "active" : ""}`}
+              <button
+                className={`nav-link btn btn-link ${category === "sports" ? "active" : ""}`}
                 onClick={() => setCategory("sports")}
-                style={{ cursor: "pointer" }}
               >
                 Sports
-              </div>
+              </button>
             </li>
             <li className="nav-item">
-              <div
-                className={`nav-link ${category === "business" ? "active" : ""}`}
+              <button
+                className={`nav-link btn btn-link ${category === "business" ? "active" : ""}`}
                 onClick={() => setCategory("business")}
-                style={{ cursor: "pointer" }}
               >
                 Business
-              </div>
+              </button>
             </li>
             <li className="nav-item">
-              <div
-                className={`nav-link ${category === "entertainment" ? "active" : ""}`}
+              <button
+                className={`nav-link btn btn-link ${category === "entertainment" ? "active" : ""}`}
                 onClick={() => setCategory("entertainment")}
-                style={{ cursor: "pointer" }}
               >
                 Entertainment
-              </div>
+              </button>
             </li>
           </ul>
         </div>

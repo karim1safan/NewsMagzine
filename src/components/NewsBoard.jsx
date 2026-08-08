@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react";
 import NewsItem from "./NewsItem";
 
+const API_KEY = import.meta.env.VITE_API_KEY;
+
 const NewsBoard = ({ category }) => {
   const [articles, setArticles] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const API_KEY = import.meta.env.VITE_API_KEY;
-
-  // pagination
   const [page, setPage] = useState(1);
+  const [totalResults, setTotalResults] = useState(0);
 
   useEffect(() => {
     setPage(1);
@@ -17,14 +17,20 @@ const NewsBoard = ({ category }) => {
 
   useEffect(() => {
     const fetchNews = async () => {
+      setLoading(true);
       try {
         const response = await fetch(
           `https://newsapi.org/v2/everything?q=${category}&pageSize=12&page=${page}&apiKey=${API_KEY}`,
         );
         const data = await response.json();
-
-        setArticles(data.articles);
-      } catch (error) {
+        if (!response.ok || data.status === "error") {
+          setError(data.message || "Failed to fetch news");
+          setArticles([]);
+        } else {
+          setArticles(data.articles || []);
+          setTotalResults(data.totalResults || 0);
+        }
+      } catch {
         setError("Failed to fetch news");
       } finally {
         setLoading(false);
@@ -48,8 +54,8 @@ const NewsBoard = ({ category }) => {
         <p className="text-center text-danger h3">{error}</p>
       ) : (
         <div className="row">
-          {articles.map((article, index) => (
-            <div key={index} className="col-sm-6 col-md-4 col-lg-3">
+          {articles.map((article) => (
+            <div key={article.url} className="col-sm-6 col-md-4 col-lg-3">
               <NewsItem article={article} />
             </div>
           ))}
@@ -87,7 +93,7 @@ const NewsBoard = ({ category }) => {
                 <button
                   className="page-link"
                   onClick={() => setPage(page + 1)}
-                  disabled={page === articles.length / 12} // Assuming 12 articles per page
+                  disabled={page >= Math.ceil(totalResults / 12)}
                 >
                   &raquo;
                 </button>
